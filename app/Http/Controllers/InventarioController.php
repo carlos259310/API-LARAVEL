@@ -21,7 +21,9 @@ class InventarioController extends Controller
         $totalProductos = Producto::count();
         $totalStock = Inventario::sum('stock_actual') ?? 0;
         $stockBajo = 0;
-        $valorTotal = 0;
+        $valorTotal = Inventario::with('producto')->get()->sum(function($inv) {
+            return ($inv->stock_actual ?? 0) * ($inv->costo_promedio ?? 0);
+        });
 
         // Productos para el modal
         $productos = Producto::where('activo', true)->get();

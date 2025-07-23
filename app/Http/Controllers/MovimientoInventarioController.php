@@ -51,8 +51,7 @@ class MovimientoInventarioController extends Controller
                 'id_producto' => $producto->getAttribute('id'),
                 'tipo_movimiento' => $validated['tipo_movimiento'],
                 'cantidad' => $validated['cantidad'],
-                'observaciones' => $validated['observaciones'],
-                'fecha_movimiento' => now()
+                'observaciones' => $validated['observaciones']
             ]);
 
             // Actualizar el inventario
