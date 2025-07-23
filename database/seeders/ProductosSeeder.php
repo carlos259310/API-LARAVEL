@@ -9,6 +9,7 @@ use App\Models\Categoria;
 use App\Models\Marca;
 use App\Models\Proveedor;
 use App\Models\Inventario;
+use App\Models\Bodega;
 
 class ProductosSeeder extends Seeder
 {
@@ -155,14 +156,18 @@ class ProductosSeeder extends Seeder
                 'activo' => true
             ]);
 
-            // Crear inventario inicial
-            Inventario::create([
-                'id_producto' => $producto->getAttribute('id'),
-                'stock_actual' => $productoData['stock_inicial'],
-                'stock_disponible' => $productoData['stock_inicial'],
-                'costo_promedio' => $productoData['precio'] * 0.7,
-                'ultima_entrada' => now()
-            ]);
+            // Crear inventario inicial en todas las bodegas
+            $bodegas = Bodega::all();
+            foreach ($bodegas as $bodega) {
+                Inventario::create([
+                    'id_producto' => $producto->getAttribute('id'),
+                    'id_bodega' => $bodega->getAttribute('id'),
+                    'stock_actual' => $productoData['stock_inicial'],
+                    'stock_disponible' => $productoData['stock_inicial'],
+                    'costo_promedio' => $productoData['precio'] * 0.7,
+                    'ultima_entrada' => now()
+                ]);
+            }
         }
     }
 }

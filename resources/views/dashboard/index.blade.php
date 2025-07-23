@@ -105,6 +105,22 @@
                             </a>
                         </div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-grid">
+                            <a href="{{ route('facturas.index') }}" class="btn btn-outline-primary">
+                                <i class="bi bi-receipt me-2"></i>
+                                Ver Facturas
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-grid">
+                            <a href="{{ route('facturas.create') }}" class="btn btn-outline-success">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Nueva Factura
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

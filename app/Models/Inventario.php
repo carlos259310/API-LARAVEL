@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Inventario extends Model
 {
@@ -11,6 +12,7 @@ class Inventario extends Model
     
     protected $fillable = [
         'id_producto',
+        'id_bodega',
         'stock_actual',
         'stock_reservado',
         'stock_disponible',
@@ -28,6 +30,16 @@ class Inventario extends Model
     public function producto(): BelongsTo
     {
         return $this->belongsTo(Producto::class, 'id_producto');
+    }
+
+    public function bodega(): BelongsTo
+    {
+        return $this->belongsTo(Bodega::class, 'id_bodega');
+    }
+
+    public function movimientos(): HasMany
+    {
+        return $this->hasMany(MovimientoInventario::class, 'id_inventario');
     }
 
     // Método para actualizar el stock disponible

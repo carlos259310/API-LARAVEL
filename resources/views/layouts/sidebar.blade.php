@@ -142,6 +142,13 @@
                                 Inventario
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('facturas.*') ? 'active' : '' }}" 
+                               href="{{ route('facturas.index') }}">
+                                <i class="bi bi-file-earmark-text"></i>
+                                Facturas
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>

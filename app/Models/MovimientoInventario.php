@@ -11,6 +11,8 @@ class MovimientoInventario extends Model
     
     protected $fillable = [
         'id_producto',
+        'id_bodega',
+        'id_inventario',
         'tipo_movimiento',
         'cantidad',
         'costo_unitario',
@@ -31,6 +33,16 @@ class MovimientoInventario extends Model
     public function producto(): BelongsTo
     {
         return $this->belongsTo(Producto::class, 'id_producto');
+    }
+
+    public function bodega(): BelongsTo
+    {
+        return $this->belongsTo(Bodega::class, 'id_bodega');
+    }
+
+    public function inventario(): BelongsTo
+    {
+        return $this->belongsTo(Inventario::class, 'id_inventario');
     }
 
     // Boot method para calcular automáticamente el costo total

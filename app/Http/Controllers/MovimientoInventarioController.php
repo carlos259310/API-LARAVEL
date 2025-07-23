@@ -15,8 +15,9 @@ class MovimientoInventarioController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+                $validated = $request->validate([
             'id_producto' => 'required|exists:productos,id',
+            'id_bodega' => 'required|exists:bodegas,id',
             'tipo_movimiento' => 'required|in:entrada,salida',
             'cantidad' => 'required|integer|min:1',
             'observaciones' => 'nullable|string|max:500'
@@ -26,12 +27,14 @@ class MovimientoInventarioController extends Controller
             DB::beginTransaction();
 
             $producto = Producto::findOrFail($validated['id_producto']);
-            $inventario = Inventario::where('id_producto', $producto->getAttribute('id'))->first();
+            $inventario = Inventario::where('id_producto', $producto->getAttribute('id'))
+                ->where('id_bodega', $validated['id_bodega'])->first();
 
             // Si no existe inventario, crearlo
             if (!$inventario) {
                 $inventario = Inventario::create([
                     'id_producto' => $producto->getAttribute('id'),
+                    'id_bodega' => $validated['id_bodega'],
                     'stock_actual' => 0,
                     'stock_reservado' => 0,
                     'stock_disponible' => 0,
